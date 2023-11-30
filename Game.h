@@ -9,6 +9,7 @@ public:
   bool Init(const std::string&, int, int, int, int, int);
   bool Running();
   void Clean();
+  void Render();
 protected:
   Game() {};
 private:

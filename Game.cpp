@@ -45,17 +45,17 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
     return is_inited;
   }
 
-  const SDL_Rect rect = {0, 0, 30, 30};
-  if (SDL_RenderFillRect(_renderer, &rect) < 0) {
-    std::cerr << "Could not fill rect"
-      << SDL_GetError() << std::endl;
-    is_inited = false;
-    return is_inited;
-  }
-
   is_inited = true;
   is_running = true;
   return is_inited;
+}
+
+void Game::Render() {
+  if (SDL_RenderClear(_renderer) < 0) {
+    std::cerr << "Could set renderer color"
+      << SDL_GetError() << std::endl;
+  }
+  SDL_RenderPresent(_renderer);
 }
 
 bool Game::Running() {
