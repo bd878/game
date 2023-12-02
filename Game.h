@@ -1,6 +1,9 @@
 #pragma once
 
+#include <vector>
 #include <string>
+
+#include "GameObject.h"
 
 class Game {
 public:
@@ -10,6 +13,7 @@ public:
   bool Running();
   void Clean();
   void Render();
+  void Update();
 protected:
   Game() {};
 private:
@@ -20,4 +24,6 @@ private:
 
   SDL_Window* _window;
   SDL_Renderer* _renderer;
+
+  std::vector<GameObject*> _objects;
 };

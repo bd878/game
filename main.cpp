@@ -15,9 +15,9 @@ int main() {
     SCREEN_WIDTH, SCREEN_HEIGHT, false)
   ) {
     while (Game::Instance()->Running()) {
+      Game::Instance()->Update();
       Game::Instance()->Render();
-      SDL_Delay(1000*5);
-      break;
+      SDL_Delay(1000*1);
     }
   } else {
     std::cout << "game init failed\n" << std::endl;

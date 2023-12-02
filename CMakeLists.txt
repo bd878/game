@@ -13,7 +13,15 @@ else()
   message(STATUS "SDL2 not found")
 endif()
 
-add_library(Game Game.cpp)
+add_library(
+  Game
+  Game.cpp
+  Square.h
+  Square.cpp
+  Vector2D.cpp
+  Vector2D.h
+  GameObject.h
+)
 
 add_executable(game main.cpp)
 target_link_libraries(game SDL2 Game)

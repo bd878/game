@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "Game.h"
+#include "Square.h"
 
 Game* Game::_instance = nullptr;
 
@@ -19,6 +20,8 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
     is_inited = false;
     return is_inited;
   }
+
+  _objects.push_back(new Square());
 
   _window = SDL_CreateWindow(title.c_str(),
     x, y, w, h, flags);
@@ -38,7 +41,7 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
     return is_inited;
   }
 
-  if (SDL_SetRenderDrawColor(_renderer, 50, 50, 50, 20) < 0) {
+  if (SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255) < 0) {
     std::cerr << "Could set renderer color"
       << SDL_GetError() << std::endl;
     is_inited = false;
@@ -56,27 +59,22 @@ void Game::Render() {
       << SDL_GetError() << std::endl;
   }
 
-  SDL_Surface* _windowSurface = SDL_GetWindowSurface(_window);
-  if (_windowSurface == NULL) {
-    std::cerr << "Cannot get window surface"
-      << SDL_GetError() << std::endl;
-    return;
+  for (auto v : _objects) {
+    v->Render(_renderer);
   }
 
-  const SDL_Rect rect = {0, 0, 30, 30};
-  if (SDL_FillRect(_windowSurface, &rect,
-    SDL_MapRGB(_windowSurface->format, 255, 255, 100)) < 0) {
-    std::cerr << "Cannot render rect on window surface"
+  if (SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255) < 0) {
+    std::cerr << "Could set renderer color"
       << SDL_GetError() << std::endl;
-    return;
   }
-
-  SDL_Texture* texture = SDL_CreateTextureFromSurface(_renderer, _windowSurface);
-  SDL_FreeSurface(_windowSurface);
-
-  SDL_RenderCopy(_renderer, texture, &rect, &rect);
 
   SDL_RenderPresent(_renderer);
+}
+
+void Game::Update() {
+  for (auto v : _objects) {
+    v->Update();
+  }
 }
 
 bool Game::Running() {
