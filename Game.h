@@ -14,16 +14,20 @@ public:
   void Clean();
   void Render();
   void Update();
+  void HandleEvents();
+  void Quit();
 protected:
   Game() {};
 private:
-  static Game* _instance;
+  inline static Game* _instance = nullptr;
 
-  bool is_inited = false;
-  bool is_running = false;
+  bool _inited = false;
+  bool _running = false;
 
   SDL_Window* _window;
   SDL_Renderer* _renderer;
 
   std::vector<GameObject*> _objects;
 };
+
+typedef Game TheGame;

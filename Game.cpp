@@ -3,8 +3,7 @@
 #include <SDL2/SDL.h>
 #include "Game.h"
 #include "Square.h"
-
-Game* Game::_instance = nullptr;
+#include "InputHandler.h"
 
 Game* Game::Instance() {
   if (_instance == nullptr) {
@@ -17,8 +16,8 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
     std::cerr << "SDL2 could not be initializer"
       << SDL_GetError() << std::endl;
-    is_inited = false;
-    return is_inited;
+    _inited = false;
+    return _inited;
   }
 
   _objects.push_back(new Square());
@@ -29,28 +28,28 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
   if (_window == NULL) {
     std::cerr << "Window could not be created"
       << SDL_GetError() << std::endl;
-    is_inited = false;
-    return is_inited;
+    _inited = false;
+    return _inited;
   }
 
   _renderer = SDL_CreateRenderer(_window, -1, 0);
   if (_renderer == NULL) {
     std::cerr << "Renderer could not be created"
       << SDL_GetError() << std::endl;
-    is_inited = false;
-    return is_inited;
+    _inited = false;
+    return _inited;
   }
 
   if (SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255) < 0) {
     std::cerr << "Could set renderer color"
       << SDL_GetError() << std::endl;
-    is_inited = false;
-    return is_inited;
+    _inited = false;
+    return _inited;
   }
 
-  is_inited = true;
-  is_running = true;
-  return is_inited;
+  _inited = true;
+  _running = true;
+  return _inited;
 }
 
 void Game::Render() {
@@ -71,6 +70,10 @@ void Game::Render() {
   SDL_RenderPresent(_renderer);
 }
 
+void Game::HandleEvents() {
+  TheInputHandler::Instance()->HandleEvents();
+}
+
 void Game::Update() {
   for (auto v : _objects) {
     v->Update();
@@ -78,7 +81,7 @@ void Game::Update() {
 }
 
 bool Game::Running() {
-  return is_running;
+  return _running;
 }
 
 void Game::Clean() {
@@ -89,4 +92,9 @@ void Game::Clean() {
   _renderer = NULL;
 
   SDL_Quit();
+}
+
+void Game::Quit() {
+  std::cout << "Quit" << std::endl;
+  _running = false;
 }
