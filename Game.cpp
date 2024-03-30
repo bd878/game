@@ -1,9 +1,13 @@
 #include <string>
 #include <iostream>
+#include <memory>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "Game.h"
+#include "AnimatedObject.h"
 #include "Square.h"
 #include "InputHandler.h"
+#include "LoaderParams.h"
 
 Game* Game::Instance() {
   if (_instance == nullptr) {
@@ -14,13 +18,11 @@ Game* Game::Instance() {
 
 bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags) {
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-    std::cerr << "SDL2 could not be initializer"
+    std::cerr << "SDL2 could not be initialized"
       << SDL_GetError() << std::endl;
     _inited = false;
     return _inited;
   }
-
-  _objects.push_back(new Square());
 
   _window = SDL_CreateWindow(title.c_str(),
     x, y, w, h, flags);
@@ -40,12 +42,31 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
     return _inited;
   }
 
+  int imgFlags = IMG_INIT_PNG;
+  if (!(IMG_Init(imgFlags) & imgFlags)) {
+    std::cerr << "SDL_image could not be initialized"
+      << SDL_GetError() << std::endl;
+    _inited = false;
+    return _inited;
+  }
+
   if (SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255) < 0) {
     std::cerr << "Could set renderer color"
       << SDL_GetError() << std::endl;
     _inited = false;
     return _inited;
   }
+
+  auto jaguar = new AnimatedObject();
+  jaguar->Load(std::unique_ptr<LoaderParams>(new LoaderParams(
+    0, 0, 128, 55, 4, "./assets/animate.bmp", 1
+  )), _renderer);
+  _objects.push_back(jaguar);
+
+  auto square = new Square();
+  square->Load(std::unique_ptr<LoaderParams>(new LoaderParams(
+    0, 130, 11, 11, 4, "", 0
+  )), _renderer);
 
   _inited = true;
   _running = true;
@@ -56,13 +77,14 @@ void Game::Render() {
   if (SDL_RenderClear(_renderer) < 0) {
     std::cerr << "Could not rerender renderer"
       << SDL_GetError() << std::endl;
+    return;
   }
 
   for (auto v : _objects) {
     v->Render(_renderer);
   }
 
-  if (SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255) < 0) {
+  if (SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0) < 0) {
     std::cerr << "Could set renderer color"
       << SDL_GetError() << std::endl;
   }
@@ -91,6 +113,7 @@ void Game::Clean() {
   _window = NULL;
   _renderer = NULL;
 
+  IMG_Quit();
   SDL_Quit();
 }
 

@@ -10,9 +10,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 message("C++ compiler flags: ${CMAKE_CXX_FLAGS}")
 list(APPEND flags "-Wall")
 
-find_package(SDL2 REQUIRED)
+find_package(SDL2 REQUIRED COMPONENTS SDL2_image)
 if(SDL2_FOUND)
-  message(STATUS "SDL2 found")
+  message(STATUS "SDL2 found with libraries")
 else()
   message(STATUS "SDL2 not found")
 endif()
@@ -21,18 +21,26 @@ add_library(
   InputHandler
   InputHandler.cpp
   InputHandler.h
+  LoaderParams.h
+)
+
+add_library(
+  GameObjects
+  GameObject.h
+  AnimatedObject.h
+  AnimatedObject.cpp
+  Square.h
+  Square.cpp
 )
 
 add_library(
   Game
   Game.h
   Game.cpp
-  Square.h
-  Square.cpp
-  Vector2D.cpp
   Vector2D.h
-  GameObject.h
 )
 
+target_link_libraries(Game PUBLIC SDL2 SDL2_image)
+
 add_executable(game main.cpp)
-target_link_libraries(game SDL2 Game InputHandler)
+target_link_libraries(game SDL2 SDL2_image Game GameObjects InputHandler)

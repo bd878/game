@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <SDL2/SDL.h>
 
 #include "GameObject.h"
 
@@ -16,6 +17,10 @@ public:
   void Update();
   void HandleEvents();
   void Quit();
+
+  SDL_Renderer* GetRenderer() const { return _renderer; }
+  SDL_Window* GetWindow() const { return _window; }
+
 protected:
   Game() {};
 private:
