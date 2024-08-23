@@ -29,8 +29,6 @@ add_library(
   GameObject.h
   AnimatedObject.h
   AnimatedObject.cpp
-  Square.h
-  Square.cpp
 )
 
 add_library(
@@ -38,6 +36,8 @@ add_library(
   Game.h
   Game.cpp
   Vector2D.h
+  TextureManager.h
+  TextureManager.cpp
 )
 
 target_link_libraries(Game PUBLIC SDL2 SDL2_image)

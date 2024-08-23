@@ -18,15 +18,13 @@ public:
   {
   }
 
-  virtual void Load(std::unique_ptr<LoaderParams> const &, SDL_Renderer*);
+  virtual void Load(std::unique_ptr<LoaderParams> const&);
 
   virtual void Update();
 
-  virtual void Render(SDL_Renderer*);
+  virtual void Draw();
 
 private:
-  SDL_Texture* m_texture;
-
   // animation variables
   int m_animSpeed;
   int m_numFrames;

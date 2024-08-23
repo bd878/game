@@ -1,1 +1,6 @@
 build
+*.patch
+*.swo
+*.swn
+*.swp
+*.out

@@ -10,11 +10,11 @@ class GameObject {
 public:
   virtual ~GameObject() = default;
 
-  virtual void Load(std::unique_ptr<LoaderParams> const &, SDL_Renderer*) = 0;
+  virtual void Load(std::unique_ptr<LoaderParams> const &) = 0;
 
   virtual void Update() = 0;
 
-  virtual void Render(SDL_Renderer*) = 0;
+  virtual void Draw() = 0;
 
 protected:
 
@@ -33,4 +33,6 @@ protected:
   // size variables
   int m_width;
   int m_height;
+
+  std::string m_textureId;
 };

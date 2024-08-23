@@ -5,7 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include "Game.h"
 #include "AnimatedObject.h"
-#include "Square.h"
+#include "TextureManager.h"
 #include "InputHandler.h"
 #include "LoaderParams.h"
 
@@ -57,16 +57,11 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
     return _inited;
   }
 
-  auto jaguar = new AnimatedObject();
-  jaguar->Load(std::unique_ptr<LoaderParams>(new LoaderParams(
-    0, 0, 128, 55, 4, "./assets/animate.bmp", 1
-  )), _renderer);
-  _objects.push_back(jaguar);
+  TheTextureManager::Instance()->load("./assets/animate-alpha.png", "animate", _renderer);
 
-  auto square = new Square();
-  square->Load(std::unique_ptr<LoaderParams>(new LoaderParams(
-    0, 130, 11, 11, 4, "", 0
-  )), _renderer);
+  auto jaguar = new AnimatedObject();
+  jaguar->Load(std::unique_ptr<LoaderParams>(new LoaderParams(0, 0, 128, 100, 6, "animate", 6)));
+  _objects.push_back(jaguar);
 
   _inited = true;
   _running = true;
@@ -81,7 +76,7 @@ void Game::Render() {
   }
 
   for (auto v : _objects) {
-    v->Render(_renderer);
+    v->Draw();
   }
 
   if (SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0) < 0) {
