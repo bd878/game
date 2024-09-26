@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 
+#include "GameStateMachine.h"
 #include "GameObject.h"
 
 class Game {
@@ -37,6 +38,8 @@ private:
 
   SDL_Window* _window;
   SDL_Renderer* _renderer;
+
+  GameStateMachine* m_pGameStateMachine;
 
   std::vector<GameObject*> _objects;
 };

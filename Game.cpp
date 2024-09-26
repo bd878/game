@@ -8,6 +8,9 @@
 #include "TextureManager.h"
 #include "InputHandler.h"
 #include "LoaderParams.h"
+#include "PlayState.h"
+#include "MenuState.h"
+#include "GameStateMachine.h"
 
 Game* Game::Instance() {
   if (_instance == nullptr) {
@@ -26,6 +29,9 @@ bool Game::Init(const std::string& title, int xpos, int ypos, int width, int hei
 
   m_gameWidth = width;
   m_gameHeight = height;
+
+  m_pGameStateMachine = new GameStateMachine();
+  m_pGameStateMachine->ChangeState(new MenuState());
 
   _window = SDL_CreateWindow(title.c_str(),
     xpos, ypos, width, height, flags);
@@ -92,6 +98,11 @@ void Game::Render() {
 
 void Game::HandleEvents() {
   TheInputHandler::Instance()->Update();
+
+  if(TheInputHandler::Instance()->IsKeyDown(SDL_SCANCODE_RETURN))
+  {
+    m_pGameStateMachine->ChangeState(new PlayState());
+  }
 }
 
 void Game::Update() {

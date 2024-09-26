@@ -35,6 +35,18 @@ add_library(
 )
 
 add_library(
+  GameStates
+
+  GameState.h
+  MenuState.h
+  MenuState.cpp
+  PlayState.h
+  PlayState.cpp
+  GameStateMachine.h
+  GameStateMachine.cpp
+)
+
+add_library(
   Game
   Game.h
   Game.cpp
@@ -46,4 +58,4 @@ add_library(
 target_link_libraries(Game PUBLIC SDL2 SDL2_image)
 
 add_executable(game main.cpp)
-target_link_libraries(game SDL2 SDL2_image Game GameObjects InputHandler)
+target_link_libraries(game SDL2 SDL2_image Game GameObjects InputHandler GameStates)
