@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "Game.h"
-#include "AnimatedObject.h"
+#include "Player.h"
 #include "TextureManager.h"
 #include "InputHandler.h"
 #include "LoaderParams.h"
@@ -16,7 +16,7 @@ Game* Game::Instance() {
   return _instance;
 }
 
-bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags) {
+bool Game::Init(const std::string& title, int xpos, int ypos, int width, int height, int flags) {
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
     std::cerr << "SDL2 could not be initialized"
       << SDL_GetError() << std::endl;
@@ -24,8 +24,11 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
     return _inited;
   }
 
+  m_gameWidth = width;
+  m_gameHeight = height;
+
   _window = SDL_CreateWindow(title.c_str(),
-    x, y, w, h, flags);
+    xpos, ypos, width, height, flags);
 
   if (_window == NULL) {
     std::cerr << "Window could not be created"
@@ -59,9 +62,9 @@ bool Game::Init(const std::string& title, int x, int y, int w, int h, int flags)
 
   TheTextureManager::Instance()->load("./assets/animate-alpha.png", "animate", _renderer);
 
-  auto jaguar = new AnimatedObject();
-  jaguar->Load(std::unique_ptr<LoaderParams>(new LoaderParams(0, 0, 128, 100, 6, "animate", 6)));
-  _objects.push_back(jaguar);
+  auto player = new Player();
+  player->Load(std::unique_ptr<LoaderParams>(new LoaderParams(0, 0, 128, 100, 6, "animate", 6)));
+  _objects.push_back(player);
 
   _inited = true;
   _running = true;
@@ -88,7 +91,7 @@ void Game::Render() {
 }
 
 void Game::HandleEvents() {
-  TheInputHandler::Instance()->HandleEvents();
+  TheInputHandler::Instance()->Update();
 }
 
 void Game::Update() {
@@ -102,6 +105,8 @@ bool Game::Running() {
 }
 
 void Game::Clean() {
+  std::cout << "clean game" << std::endl;
+
   SDL_DestroyRenderer(_renderer);
   SDL_DestroyWindow(_window);
 

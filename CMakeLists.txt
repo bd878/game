@@ -27,6 +27,9 @@ add_library(
 add_library(
   GameObjects
   GameObject.h
+  Player.h
+  Player.cpp
+  Enemy.h
   AnimatedObject.h
   AnimatedObject.cpp
 )

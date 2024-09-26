@@ -10,24 +10,27 @@
 class AnimatedObject : public GameObject {
 public:
 
-  AnimatedObject() : GameObject(),
-                     m_animSpeed(0),
-                     m_numFrames(0),
-                     m_currentFrame(0),
-                     m_currentRow(0)
-  {
-  }
-
   virtual void Load(std::unique_ptr<LoaderParams> const&);
 
   virtual void Update();
 
   virtual void Draw();
 
-private:
+protected:
+
+  AnimatedObject() : GameObject(),
+                     m_animSpeed(0),
+                     m_numFrames(0),
+                     m_currentFrame(0),
+                     m_currentRow(0),
+                     m_moveSpeed(0)
+  {
+  }
+
   // animation variables
   int m_animSpeed;
   int m_numFrames;
   int m_currentFrame;
   int m_currentRow;
+  int m_moveSpeed;
 };

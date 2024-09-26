@@ -18,6 +18,9 @@ public:
   void HandleEvents();
   void Quit();
 
+  int GetGameWidth() const { return m_gameWidth; }
+  int GetGameHeight() const { return m_gameHeight; }
+
   SDL_Renderer* GetRenderer() const { return _renderer; }
   SDL_Window* GetWindow() const { return _window; }
 
@@ -28,6 +31,9 @@ private:
 
   bool _inited = false;
   bool _running = false;
+
+  int m_gameWidth;
+  int m_gameHeight;
 
   SDL_Window* _window;
   SDL_Renderer* _renderer;
