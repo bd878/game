@@ -32,6 +32,14 @@ add_library(
   Enemy.h
   AnimatedObject.h
   AnimatedObject.cpp
+  MenuButton.h
+  MenuButton.cpp
+)
+
+add_library(
+  TextureManager
+  TextureManager.h
+  TextureManager.cpp
 )
 
 add_library(
@@ -43,8 +51,6 @@ add_library(
   PlayState.cpp
   GameStateMachine.h
   GameStateMachine.cpp
-  MenuButton.h
-  MenuButton.cpp
 )
 
 add_library(
@@ -52,11 +58,11 @@ add_library(
   Game.h
   Game.cpp
   Vector2D.h
-  TextureManager.h
-  TextureManager.cpp
 )
+
+target_link_libraries(GameStates TextureManager GameObjects)
 
 target_link_libraries(Game PUBLIC SDL2 SDL2_image)
 
 add_executable(game main.cpp)
-target_link_libraries(game SDL2 SDL2_image Game GameObjects InputHandler GameStates)
+target_link_libraries(game SDL2 SDL2_image Game GameObjects InputHandler GameStates TextureManager)

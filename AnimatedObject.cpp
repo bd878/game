@@ -15,8 +15,6 @@ void AnimatedObject::Load(std::unique_ptr<LoaderParams> const &params)
   m_width = params->GetWidth();
   m_height = params->GetHeight();
   m_textureId = params->GetTextureId();
-
-  m_velocity.SetX(10);
 }
 
 void AnimatedObject::Update()
@@ -27,7 +25,17 @@ void AnimatedObject::Update()
 
 void AnimatedObject::Draw()
 {
-  TheTextureManager::Instance()->drawFrame(m_textureId,
-    m_position.GetX(), m_position.GetY(), m_width, m_height,
-    m_currentRow, m_currentFrame, TheGame::Instance()->GetRenderer(), SDL_FLIP_NONE);
+  if(m_velocity.GetX() < 0)
+  {
+    TheTextureManager::Instance()->drawFrame(m_textureId,
+      m_position.GetX(), m_position.GetY(),
+      m_width, m_height, m_currentRow, m_currentFrame,
+      TheGame::Instance()->GetRenderer(), SDL_FLIP_HORIZONTAL);
+  }
+  else
+  {
+    TheTextureManager::Instance()->drawFrame(m_textureId,
+      m_position.GetX(), m_position.GetY(), m_width, m_height,
+      m_currentRow, m_currentFrame, TheGame::Instance()->GetRenderer(), SDL_FLIP_NONE);
+  }
 }

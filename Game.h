@@ -22,6 +22,7 @@ public:
   int GetGameWidth() const { return m_gameWidth; }
   int GetGameHeight() const { return m_gameHeight; }
 
+  GameStateMachine* GetStateMachine() { return m_pGameStateMachine; }
   SDL_Renderer* GetRenderer() const { return _renderer; }
   SDL_Window* GetWindow() const { return _window; }
 
@@ -40,8 +41,6 @@ private:
   SDL_Renderer* _renderer;
 
   GameStateMachine* m_pGameStateMachine;
-
-  std::vector<GameObject*> _objects;
 };
 
 typedef Game TheGame;

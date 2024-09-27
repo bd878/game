@@ -9,6 +9,7 @@
 
 class AnimatedObject : public GameObject {
 public:
+  virtual ~AnimatedObject() {}
 
   virtual void Load(std::unique_ptr<LoaderParams> const&);
 

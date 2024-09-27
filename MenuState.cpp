@@ -4,6 +4,7 @@
 #include "LoaderParams.h"
 #include "TextureManager.h"
 #include "MenuButton.h"
+#include "PlayState.h"
 #include "MenuState.h"
 
 const std::string MenuState::s_menuID = "MENU";
@@ -41,11 +42,13 @@ bool MenuState::OnEnter()
         return false;
     }
 
-    GameObject* button1 = new MenuButton();
+    auto button1 = new MenuButton();
     button1->Load(std::unique_ptr<LoaderParams>(new LoaderParams(100, 100, 400, 100, 3, "playbutton", 0)));
+    button1->setCallback(s_menuToPlay);
 
-    GameObject* button2 = new MenuButton();
+    auto button2 = new MenuButton();
     button2->Load(std::unique_ptr<LoaderParams>(new LoaderParams(100, 300, 400, 100, 3, "exitbutton", 0)));
+    button2->setCallback(s_exitFromMenu);
 
     m_gameObjects.push_back(button1);
     m_gameObjects.push_back(button2);
@@ -60,4 +63,14 @@ bool MenuState::OnExit()
     TheTextureManager::Instance()->clearTexture("playbutton");
     TheTextureManager::Instance()->clearTexture("exitbutton");
     return true;
+}
+
+void MenuState::s_menuToPlay()
+{
+    TheGame::Instance()->GetStateMachine()->ChangeState(new PlayState());
+}
+
+void MenuState::s_exitFromMenu()
+{
+    TheGame::Instance()->Quit();
 }

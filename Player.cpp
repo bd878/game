@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Game.h"
+#include "Vector2D.h"
 #include "LoaderParams.h"
 #include "AnimatedObject.h"
 #include "InputHandler.h"
@@ -39,4 +40,9 @@ void Player::handleInput()
     {
         m_velocity.SetX(m_moveSpeed);
     }
+
+    Vector2D* target = TheInputHandler::Instance()->getMousePosition();
+    m_velocity = *target - m_position;
+
+    m_velocity /= 50;
 }

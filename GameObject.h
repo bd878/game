@@ -8,7 +8,7 @@
 
 class GameObject {
 public:
-  virtual ~GameObject() = default;
+  virtual ~GameObject() {}
 
   virtual void Load(std::unique_ptr<LoaderParams> const &) = 0;
 

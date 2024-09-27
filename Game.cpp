@@ -4,11 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "Game.h"
-#include "Player.h"
-#include "TextureManager.h"
 #include "InputHandler.h"
-#include "LoaderParams.h"
-#include "PlayState.h"
 #include "MenuState.h"
 #include "GameStateMachine.h"
 
@@ -66,12 +62,6 @@ bool Game::Init(const std::string& title, int xpos, int ypos, int width, int hei
   m_pGameStateMachine = new GameStateMachine();
   m_pGameStateMachine->ChangeState(new MenuState());
 
-  TheTextureManager::Instance()->load("./assets/animate-alpha.png", "animate", _renderer);
-
-  auto player = new Player();
-  player->Load(std::unique_ptr<LoaderParams>(new LoaderParams(0, 0, 128, 100, 6, "animate", 6)));
-  _objects.push_back(player);
-
   _inited = true;
   _running = true;
   return _inited;
@@ -91,11 +81,6 @@ void Game::Render() {
 
 void Game::HandleEvents() {
   TheInputHandler::Instance()->Update();
-
-  if(TheInputHandler::Instance()->IsKeyDown(SDL_SCANCODE_RETURN))
-  {
-    m_pGameStateMachine->ChangeState(new PlayState());
-  }
 }
 
 void Game::Update() {

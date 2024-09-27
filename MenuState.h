@@ -18,6 +18,10 @@ public:
     virtual std::string GetStateID() const { return s_menuID; }
 
 private:
+
+    static void s_menuToPlay();
+    static void s_exitFromMenu();
+
     static const std::string s_menuID;
 
     std::vector<GameObject*> m_gameObjects;

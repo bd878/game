@@ -27,16 +27,13 @@ void GameStateMachine::ChangeState(GameState *pState)
             return;
         }
 
-        if(m_gameStates.back()->OnExit())
-        {
-            delete m_gameStates.back();
-            m_gameStates.pop_back();
-        }
+        m_gameStates.back()->OnExit();
+        m_gameStates.pop_back();
     }
 
-    m_gameStates.push_back(pState);
+    pState->OnEnter();
 
-    m_gameStates.back()->OnEnter();
+    m_gameStates.push_back(pState);
 }
 
 void GameStateMachine::Update()

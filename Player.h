@@ -8,6 +8,8 @@ class Player : public AnimatedObject {
 
 public:
 
+    virtual ~Player() {}
+
     virtual void Load(std::unique_ptr<LoaderParams> const& pParams);
 
     virtual void Update();

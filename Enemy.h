@@ -3,4 +3,5 @@
 #include "AnimatedObject.h"
 
 class Enemy : public AnimatedObject {
+    virtual ~Enemy() {}
 };
