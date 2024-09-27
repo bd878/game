@@ -38,3 +38,19 @@ void GameStateMachine::ChangeState(GameState *pState)
 
     m_gameStates.back()->OnEnter();
 }
+
+void GameStateMachine::Update()
+{
+    if(!m_gameStates.empty())
+    {
+        m_gameStates.back()->Update();
+    }
+}
+
+void GameStateMachine::Render()
+{
+    if(!m_gameStates.empty())
+    {
+        m_gameStates.back()->Render();
+    }
+}

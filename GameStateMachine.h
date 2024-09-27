@@ -11,6 +11,9 @@ public:
     void ChangeState(GameState* pState);
     void PopState();
 
+    void Update();
+    void Render();
+
     std::vector<GameState*>& GetGameStates() { return m_gameStates; }
 
 private:

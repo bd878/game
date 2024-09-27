@@ -30,9 +30,6 @@ bool Game::Init(const std::string& title, int xpos, int ypos, int width, int hei
   m_gameWidth = width;
   m_gameHeight = height;
 
-  m_pGameStateMachine = new GameStateMachine();
-  m_pGameStateMachine->ChangeState(new MenuState());
-
   _window = SDL_CreateWindow(title.c_str(),
     xpos, ypos, width, height, flags);
 
@@ -66,6 +63,9 @@ bool Game::Init(const std::string& title, int xpos, int ypos, int width, int hei
     return _inited;
   }
 
+  m_pGameStateMachine = new GameStateMachine();
+  m_pGameStateMachine->ChangeState(new MenuState());
+
   TheTextureManager::Instance()->load("./assets/animate-alpha.png", "animate", _renderer);
 
   auto player = new Player();
@@ -84,14 +84,7 @@ void Game::Render() {
     return;
   }
 
-  for (auto v : _objects) {
-    v->Draw();
-  }
-
-  if (SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0) < 0) {
-    std::cerr << "Could set renderer color"
-      << SDL_GetError() << std::endl;
-  }
+  m_pGameStateMachine->Render();
 
   SDL_RenderPresent(_renderer);
 }
@@ -106,9 +99,7 @@ void Game::HandleEvents() {
 }
 
 void Game::Update() {
-  for (auto v : _objects) {
-    v->Update();
-  }
+  m_pGameStateMachine->Update();
 }
 
 bool Game::Running() {

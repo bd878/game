@@ -36,7 +36,6 @@ add_library(
 
 add_library(
   GameStates
-
   GameState.h
   MenuState.h
   MenuState.cpp
@@ -44,6 +43,8 @@ add_library(
   PlayState.cpp
   GameStateMachine.h
   GameStateMachine.cpp
+  MenuButton.h
+  MenuButton.cpp
 )
 
 add_library(

@@ -18,8 +18,7 @@ bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* _r
     SDL_Surface* pTempSurface = IMG_Load(filename.c_str());
     if (pTempSurface == 0)
     {
-        std::cout << SDL_GetError() << std::endl;
-        return false;
+         return false;
     }
 
     SDL_Texture* pTexture = SDL_CreateTextureFromSurface(_renderer, pTempSurface);
@@ -27,8 +26,7 @@ bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* _r
 
     int w, h;
     if (SDL_QueryTexture(pTexture, NULL, NULL, &w, &h) < 0) {
-        std::cout << SDL_GetError() << std::endl;
-        return false;
+         return false;
     }
 
     if (pTexture != 0)
@@ -70,4 +68,9 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int heig
   dstRect.y = y;
 
   SDL_RenderCopyEx(_renderer, m_textures[id], &srcRect, &dstRect, 0, 0, flip);
+}
+
+void TextureManager::clearTexture(std::string id)
+{
+    m_textures.erase(id);
 }

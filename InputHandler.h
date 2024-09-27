@@ -21,6 +21,9 @@ public:
 
   bool IsKeyDown(SDL_Scancode) const;
 
+  Vector2D* getMousePosition() const;
+  bool getMouseButtonState(int) const;
+
 private:
 
   InputHandler();
@@ -35,9 +38,6 @@ private:
   void onMouseMove(SDL_Event&);
   void onMouseButtonUp(SDL_Event&);
   void onMouseButtonDown(SDL_Event&);
-
-  bool getMouseButtonState(int) const;
-  Vector2D* getMousePosition() const;
 
   // keyboard specific
   const Uint8* m_keystates;
