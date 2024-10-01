@@ -62,6 +62,7 @@ bool MenuState::OnExit()
     m_gameObjects.clear();
     TheTextureManager::Instance()->clearTexture("playbutton");
     TheTextureManager::Instance()->clearTexture("exitbutton");
+    std::cout << "exiting MenuState\n";
     return true;
 }
 

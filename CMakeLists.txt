@@ -30,6 +30,7 @@ add_library(
   Player.h
   Player.cpp
   Enemy.h
+  Enemy.cpp
   AnimatedObject.h
   AnimatedObject.cpp
   MenuButton.h
@@ -51,6 +52,8 @@ add_library(
   PlayState.cpp
   GameStateMachine.h
   GameStateMachine.cpp
+  PauseState.h
+  PauseState.cpp
 )
 
 add_library(
