@@ -8,6 +8,7 @@
 #include "TextureManager.h"
 #include "PlayState.h"
 #include "PauseState.h"
+#include "GameOverState.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
@@ -21,6 +22,13 @@ void PlayState::Update()
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->Update();
+    }
+
+    if(CheckCollision(
+        dynamic_cast<GameObject*>(m_gameObjects[0]),
+        dynamic_cast<GameObject*>(m_gameObjects[1])))
+    {
+        TheGame::Instance()->GetStateMachine()->PushState(new GameOverState());
     }
 }
 
@@ -65,5 +73,30 @@ bool PlayState::OnExit()
         ->clearTexture("helicopter");
 
     std::cout << "exiting PlayState\n";
+    return true;
+}
+
+bool PlayState::CheckCollision(GameObject* p1, GameObject* p2)
+{
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    leftA = p1->GetPosition().GetX();
+    rightA = p1->GetPosition().GetX() + p1->GetWidth();
+    topA = p1->GetPosition().GetY();
+    bottomA = p1->GetPosition().GetY() + p1->GetHeight();
+
+    leftB = p2->GetPosition().GetX();
+    rightB = p2->GetPosition().GetX() + p2->GetWidth();
+    topB = p2->GetPosition().GetY();
+    bottomB = p2->GetPosition().GetY() + p2->GetHeight();
+
+    if (bottomA <= topB) { return false; }
+    if (topA >= bottomB) { return false; }
+    if (rightA <= leftB) { return false; }
+    if (leftA >= rightB) { return false; }
+
     return true;
 }

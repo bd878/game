@@ -33,6 +33,8 @@ add_library(
   Enemy.cpp
   AnimatedObject.h
   AnimatedObject.cpp
+  AnimatedGraphic.h
+  AnimatedGraphic.cpp
   MenuButton.h
   MenuButton.cpp
 )
@@ -48,6 +50,8 @@ add_library(
   GameState.h
   MenuState.h
   MenuState.cpp
+  GameOverState.h
+  GameOverState.cpp
   PlayState.h
   PlayState.cpp
   GameStateMachine.h

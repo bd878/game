@@ -16,6 +16,12 @@ public:
 
   virtual void Draw() = 0;
 
+  virtual Vector2D& GetPosition() { return m_position; }
+
+  virtual int GetWidth() { return m_width; }
+
+  virtual int GetHeight() { return m_height; }
+
 protected:
 
   // defaults
