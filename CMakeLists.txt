@@ -10,11 +10,18 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 message("C++ compiler flags: ${CMAKE_CXX_FLAGS}")
 list(APPEND flags "-Wall")
 
-find_package(SDL2 REQUIRED COMPONENTS SDL2_image)
+find_package(SDL2 REQUIRED)
 if(SDL2_FOUND)
-  message(STATUS "SDL2 found with libraries")
+  message(STATUS "SDL2 found")
 else()
   message(STATUS "SDL2 not found")
+endif()
+
+find_package(SDL2_image REQUIRED)
+if(SDL2_FOUND)
+  message(STATUS "SDL2_image found")
+else()
+  message(STATUS "SDL2_image not found")
 endif()
 
 add_library(

@@ -3,8 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include "Vector2D.h"
 #include "Game.h"
-#include "TextureManager.h"
 #include "LoaderParams.h"
+#include "TextureManager.h"
 #include "AnimatedObject.h"
 
 void AnimatedObject::Load(std::unique_ptr<LoaderParams> const &params)
