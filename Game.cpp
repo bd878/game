@@ -5,8 +5,12 @@
 #include <SDL2/SDL_image.h>
 #include "Game.h"
 #include "InputHandler.h"
-#include "MenuState.h"
+#include "MainMenuState.h"
 #include "GameStateMachine.h"
+#include "GameObjectFactory.h"
+#include "MenuButton.h"
+#include "Player.h"
+#include "Enemy.h"
 
 Game* Game::Instance() {
   if (_instance == nullptr) {
@@ -59,8 +63,15 @@ bool Game::Init(const std::string& title, int xpos, int ypos, int width, int hei
     return _inited;
   }
 
+  TheGameObjectFactory::Instance()->registerType("MenuButton",
+    new MenuButtonCreator());
+  TheGameObjectFactory::Instance()->registerType("Player",
+    new PlayerCreator());
+  TheGameObjectFactory::Instance()->registerType("Enemy",
+    new EnemyCreator());
+
   m_pGameStateMachine = new GameStateMachine();
-  m_pGameStateMachine->ChangeState(new MenuState());
+  m_pGameStateMachine->ChangeState(new MainMenuState());
 
   _inited = true;
   _running = true;

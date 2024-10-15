@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Game.h"
-#include "MenuState.h"
+#include "MainMenuState.h"
 #include "LoaderParams.h"
 #include "MenuButton.h"
 #include "InputHandler.h"
@@ -11,7 +11,7 @@ const std::string PauseState::s_pauseID = "PAUSE";
 
 void PauseState::s_pauseToMain()
 {
-    TheGame::Instance()->GetStateMachine()->ChangeState(new MenuState());
+    TheGame::Instance()->GetStateMachine()->ChangeState(new MainMenuState());
 }
 
 void PauseState::s_resumePlay()
@@ -51,12 +51,12 @@ bool PauseState::OnEnter()
 
     auto button1 = new MenuButton();
     button1->Load(std::unique_ptr<LoaderParams>(new LoaderParams(200, 100,
-        200, 80, 3, "mainbutton", 0)));
+        200, 80, 3, "mainbutton")));
     button1->setCallback(s_pauseToMain);
 
     auto button2 = new MenuButton();
     button2->Load(std::unique_ptr<LoaderParams>(new LoaderParams(200, 300,
-        200, 80, 3, "resumebutton", 0)));
+        200, 80, 3, "resumebutton")));
     button2->setCallback(s_resumePlay);
 
     m_gameObjects.push_back(button1);

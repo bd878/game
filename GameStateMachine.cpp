@@ -12,7 +12,6 @@ void GameStateMachine::PopState()
     {
         if(m_gameStates.back()->OnExit())
         {
-            delete m_gameStates.back();
             m_gameStates.pop_back();
         }
     }

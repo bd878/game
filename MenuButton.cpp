@@ -9,6 +9,7 @@ MenuButton::MenuButton() : AnimatedObject()
 void MenuButton::Load(std::unique_ptr<LoaderParams> const &pParams)
 {
     AnimatedObject::Load(std::move(pParams));
+    m_callbackID = pParams->GetCallbackID();
     m_currentFrame = MOUSE_OUT;
 }
 

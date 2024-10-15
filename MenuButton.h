@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "GameObjectFactory.h"
 #include "LoaderParams.h"
 #include "AnimatedObject.h"
 
@@ -17,7 +18,6 @@ public:
     virtual void Update();
 
     void setCallback(void(*callback)()) { m_callback = callback; }
-
     int getCallbackID() { return m_callbackID; }
 
 private:
@@ -33,4 +33,10 @@ private:
     int m_callbackID;
 
     void (*m_callback)();
+};
+
+class MenuButtonCreator : public BaseCreator {
+    virtual GameObject* createGameObject() const {
+        return new MenuButton();
+    }
 };

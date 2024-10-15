@@ -3,6 +3,7 @@
 #include <memory>
 #include "LoaderParams.h"
 #include "AnimatedObject.h"
+#include "GameObjectFactory.h"
 
 class Player : public AnimatedObject {
 
@@ -16,4 +17,12 @@ public:
 
 private:
     void handleInput();
+};
+
+class PlayerCreator : public BaseCreator
+{
+    GameObject* createGameObject() const
+    {
+        return new Player();
+    }
 };

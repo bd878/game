@@ -8,8 +8,6 @@
 
 class GameObject {
 public:
-  virtual ~GameObject() {}
-
   virtual void Load(std::unique_ptr<LoaderParams> const &) = 0;
 
   virtual void Update() = 0;
@@ -23,6 +21,7 @@ public:
   virtual int GetHeight() { return m_height; }
 
 protected:
+  virtual ~GameObject() {}
 
   // defaults
   GameObject() : m_position(0, 0),

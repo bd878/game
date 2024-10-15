@@ -25,6 +25,12 @@ else()
 endif()
 
 add_library(
+  Tinyxml
+  tinyxml2.h
+  tinyxml2.cpp
+)
+
+add_library(
   InputHandler
   InputHandler.cpp
   InputHandler.h
@@ -56,7 +62,8 @@ add_library(
   GameStates
   GameState.h
   MenuState.h
-  MenuState.cpp
+  MainMenuState.cpp
+  MainMenuState.h
   GameOverState.h
   GameOverState.cpp
   PlayState.h
@@ -65,6 +72,10 @@ add_library(
   GameStateMachine.cpp
   PauseState.h
   PauseState.cpp
+  GameObjectFactory.h
+  GameObjectFactory.cpp
+  StateParser.cpp
+  StateParser.h
 )
 
 add_library(
@@ -79,4 +90,14 @@ target_link_libraries(GameStates TextureManager GameObjects)
 target_link_libraries(Game PUBLIC SDL2 SDL2_image)
 
 add_executable(game main.cpp)
-target_link_libraries(game SDL2 SDL2_image Game GameObjects InputHandler GameStates TextureManager)
+target_link_libraries(
+  game
+  SDL2
+  SDL2_image
+  Game
+  GameObjects
+  InputHandler
+  GameStates
+  TextureManager
+  Tinyxml
+)
