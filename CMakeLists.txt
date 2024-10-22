@@ -31,6 +31,22 @@ add_library(
 )
 
 add_library(
+  base64
+  base64.h
+  base64.cpp
+)
+
+add_library(
+  Layers
+  Layer.h
+  TileLayer.h
+  Level.h
+  Level.cpp
+  LevelParser.h
+  LevelParser.cpp
+)
+
+add_library(
   InputHandler
   InputHandler.cpp
   InputHandler.h
