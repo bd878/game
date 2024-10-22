@@ -1,10 +1,10 @@
 #pragma once
 
 #include <string>
-#include "GameState.h"
+#include "MenuState.h"
 #include "GameObject.h"
 
-class PauseState : public GameState
+class PauseState : public MenuState
 {
 
 public:
@@ -15,6 +15,10 @@ public:
     virtual bool OnExit();
 
     virtual std::string GetStateID() const { return s_pauseID; }
+
+protected:
+
+    virtual void setCallbacks(const std::vector<Callback>& callbacks);
 
 private:
 

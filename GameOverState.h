@@ -3,9 +3,9 @@
 #include <vector>
 #include <string>
 #include "GameObject.h"
-#include "GameState.h"
+#include "MenuState.h"
 
-class GameOverState : public GameState
+class GameOverState : public MenuState
 {
 public:
 
@@ -22,6 +22,10 @@ public:
     virtual bool OnExit();
 
     virtual std::string GetStateID() const { return s_gameOverID; }
+
+protected:
+
+    virtual void setCallbacks(const std::vector<Callback>& callbacks);
 
 private:
     static void s_gameOverToMain();
