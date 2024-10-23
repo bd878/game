@@ -20,19 +20,19 @@ void PlayState::Update()
         TheGame::Instance()->GetStateMachine()->PushState(new PauseState());
     }
 
-    for(int i = 0; i < m_gameObjects.size(); i++)
-    {
-        m_gameObjects[i]->Update();
-    }
+    // for(int i = 0; i < m_gameObjects.size(); i++)
+    // {
+    //     m_gameObjects[i]->Update();
+    // }
 
-    if (m_gameObjects.size() == 2) {
-        if(CheckCollision(
-            dynamic_cast<GameObject*>(m_gameObjects[0]),
-            dynamic_cast<GameObject*>(m_gameObjects[1])))
-        {
-            TheGame::Instance()->GetStateMachine()->PushState(new GameOverState());
-        }
-    }
+    // if (m_gameObjects.size() == 2) {
+    //     if(CheckCollision(
+    //         dynamic_cast<GameObject*>(m_gameObjects[0]),
+    //         dynamic_cast<GameObject*>(m_gameObjects[1])))
+    //     {
+    //         TheGame::Instance()->GetStateMachine()->PushState(new GameOverState());
+    //     }
+    // }
 }
 
 void PlayState::Render()

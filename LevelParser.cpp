@@ -1,4 +1,8 @@
+#include <iostream>
 #include "LevelParser.h"
+#include "base64.h"
+#include "TileLayer.h"
+#include "Level.h"
 #include "Game.h"
 #include "TextureManager.h"
 
@@ -33,6 +37,9 @@ Level* LevelParser::parseLevel(const char *levelFile)
         }
     }
 
+    std::cout << "levelFile: " << levelFile << ": width: "
+        << m_width << ", height: " << m_height << std::endl;
+
     return pLevel;
 }
 
@@ -64,7 +71,7 @@ void LevelParser::parseTilesets(tinyxml2::XMLElement* pTilesetRoot,
 void LevelParser::parseTileLayer(tinyxml2::XMLElement* pTileElement,
     std::vector<Layer*> *pLayers, const std::vector<Tileset>* pTilesets)
 {
-    TileLayer pTileLayer = new TileLayer(m_tileSize, *pTilesets);
+    auto pTileLayer = new TileLayer(m_tileSize, *pTilesets);
 
     // tile data
     std::vector<std::vector<int>> data;
@@ -85,14 +92,21 @@ void LevelParser::parseTileLayer(tinyxml2::XMLElement* pTileElement,
         e = e->NextSibling())
     {
         tinyxml2::XMLText* text = e->ToText();
-        decodeIDs = base64_decode(text->Value());
+        std::string t = text->Value();
+        std::cout << "T: " << t << std::endl;
+        decodeIDs = base64_decode(t);
+        std::cout << "Ids: " << decodeIDs << std::endl;
     }
+
+    std::cout << "DecodeIDS c_str: " << decodeIDs.c_str() << "DecodeIDS size: " << decodeIDs.size() << std::endl;
 
     // uncompress zlib compression
     uLongf numGids = m_width * m_height * sizeof(int);
     std::vector<unsigned> gids(numGids);
     uncompress((Bytef*) &gids[0], &numGids,
         (const Bytef*)decodeIDs.c_str(), decodeIDs.size());
+
+    std::copy(gids.begin(), gids.end(), std::ostream_iterator<unsigned>(std::cout, ","));
 
     std::vector<int> layerRow(m_width);
 

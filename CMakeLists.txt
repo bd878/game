@@ -24,6 +24,13 @@ else()
   message(STATUS "SDL2_image not found")
 endif()
 
+find_package(ZLIB REQUIRED)
+if(ZLIB_FOUND)
+  message(STATUS "Zlib found")
+else()
+  message(STATUS "Zlib not found")
+endif()
+
 add_library(
   Tinyxml
   tinyxml2.h
@@ -40,10 +47,11 @@ add_library(
   Layers
   Layer.h
   TileLayer.h
-  Level.h
-  Level.cpp
+  TileLayer.cpp
   LevelParser.h
   LevelParser.cpp
+  Level.h
+  Level.cpp
 )
 
 add_library(
@@ -101,9 +109,9 @@ add_library(
   Vector2D.h
 )
 
-target_link_libraries(GameStates TextureManager GameObjects)
+target_link_libraries(GameStates TextureManager GameObjects base64)
 
-target_link_libraries(Game PUBLIC SDL2 SDL2_image)
+target_link_libraries(Game PUBLIC SDL2 SDL2_image z)
 
 add_executable(game main.cpp)
 target_link_libraries(
@@ -116,4 +124,5 @@ target_link_libraries(
   GameStates
   TextureManager
   Tinyxml
+  Layers
 )

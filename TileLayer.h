@@ -2,6 +2,7 @@
 
 #include "Vector2D.h"
 #include "Layer.h"
+#include "Level.h"
 
 class TileLayer : public Layer
 {

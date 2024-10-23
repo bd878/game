@@ -2,12 +2,15 @@
 
 #include <vector>
 #include <string>
+#include "Level.h"
 #include "GameObject.h"
 #include "GameState.h"
 
 class PlayState : public GameState
 {
 public:
+
+    virtual ~PlayState() { delete pLevel; }
 
     virtual void Update();
     virtual void Render();
@@ -23,4 +26,6 @@ private:
     static const std::string s_playID;
 
     std::vector<GameObject*> m_gameObjects;
+
+    Level* pLevel;
 };

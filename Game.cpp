@@ -64,14 +64,10 @@ bool Game::Init(const std::string& title, int xpos, int ypos, int width, int hei
     return _inited;
   }
 
-  TheGameObjectFactory::Instance()->registerType("MenuButton",
-    new MenuButtonCreator());
-  TheGameObjectFactory::Instance()->registerType("Player",
-    new PlayerCreator());
-  TheGameObjectFactory::Instance()->registerType("Enemy",
-    new EnemyCreator());
-  TheGameObjectFactory::Instance()->registerType("AnimatedGraphic",
-    new AnimatedGraphicCreator());
+  TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
+  TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
+  TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
+  TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
 
   m_pGameStateMachine = new GameStateMachine();
   m_pGameStateMachine->ChangeState(new MainMenuState());

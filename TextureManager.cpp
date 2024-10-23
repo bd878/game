@@ -83,7 +83,7 @@ void TextureManager::drawTile(std::string id, int margin, int spacing,
     destRect.x = x;
     destRect.y = y;
 
-    SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect,
+    SDL_RenderCopyEx(pRenderer, m_textures[id], &srcRect,
         &destRect, 0, 0, SDL_FLIP_NONE);
 }
 

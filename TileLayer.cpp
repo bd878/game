@@ -51,3 +51,25 @@ void TileLayer::render()
         }
     }
 }
+
+Tileset TileLayer::getTilesetByID(int tileID)
+{
+    for(int i = 0; i < m_tilesets.size(); i++)
+    {
+        if(i + 1 <= m_tilesets.size() - 1)
+        {
+            if(tileID >= m_tilesets[i].firstGridID && tileID < m_tilesets[i + 1].firstGridID)
+            {
+                return m_tilesets[i];
+            }
+        }
+        else
+        {
+            return m_tilesets[i];
+        }
+    }
+
+    std::cout << "dod not find tileset, returning empty tileset\n";
+    Tileset t;
+    return t;
+}

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include <iostream>
 #include "Layer.h"
@@ -23,8 +25,8 @@ public:
 
     friend class LevelParser;
 
-    Level();
-    ~Level() {}
+    Level() {};
+    ~Level();
 
     void update();
     void render();
