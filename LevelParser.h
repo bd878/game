@@ -1,5 +1,6 @@
 #include <vector>
 
+#include "zlib.h"
 #include "tinyxml2.h"
 #include "Level.h"
 

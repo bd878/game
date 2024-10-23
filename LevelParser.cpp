@@ -60,3 +60,56 @@ void LevelParser::parseTilesets(tinyxml2::XMLElement* pTilesetRoot,
 
     pTilesets->push_back(tileset);
 }
+
+void LevelParser::parseTileLayer(tinyxml2::XMLElement* pTileElement,
+    std::vector<Layer*> *pLayers, const std::vector<Tileset>* pTilesets)
+{
+    TileLayer pTileLayer = new TileLayer(m_tileSize, *pTilesets);
+
+    // tile data
+    std::vector<std::vector<int>> data;
+
+    std::string decodeIDs;
+    tinyxml2::XMLElement* pDataNode;
+
+    for(tinyxml2::XMLElement* e = pTileElement->FirstChildElement(); e != NULL;
+        e = e->NextSiblingElement())
+    {
+        if(e->Value() == std::string("data"))
+        {
+            pDataNode = e;
+        }
+    }
+
+    for(tinyxml2::XMLNode* e = pDataNode->FirstChild(); e != NULL;
+        e = e->NextSibling())
+    {
+        tinyxml2::XMLText* text = e->ToText();
+        decodeIDs = base64_decode(text->Value());
+    }
+
+    // uncompress zlib compression
+    uLongf numGids = m_width * m_height * sizeof(int);
+    std::vector<unsigned> gids(numGids);
+    uncompress((Bytef*) &gids[0], &numGids,
+        (const Bytef*)decodeIDs.c_str(), decodeIDs.size());
+
+    std::vector<int> layerRow(m_width);
+
+    for(int j = 0; j < m_height; j++)
+    {
+        data.push_back(layerRow);
+    }
+
+    for(int rows = 0; rows < m_height; rows++)
+    {
+        for(int cols = 0; cols < m_width; cols++)
+        {
+            data[rows][cols] = gids[rows * m_width + cols];
+        }
+    }
+
+    pTileLayer->setTileIDs(data);
+
+    pLayers->push_back(pTileLayer);
+}

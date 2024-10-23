@@ -8,7 +8,7 @@
 #include "TextureManager.h"
 #include "PlayState.h"
 #include "PauseState.h"
-#include "StateParser.h"
+#include "LevelParser.h"
 #include "GameOverState.h"
 
 const std::string PlayState::s_playID = "PLAY";
@@ -37,19 +37,13 @@ void PlayState::Update()
 
 void PlayState::Render()
 {
-    for(int i = 0; i < m_gameObjects.size(); i++)
-    {
-        m_gameObjects[i]->Draw();
-    }
+    pLevel->render();
 }
 
 bool PlayState::OnEnter()
 {
-    StateParser stateParser;
-    if (!stateParser.parseState("test.xml", s_playID, &m_gameObjects,
-        &m_textureIDList)) {
-        std::cout << "failed to parse state\n";
-    }
+    LevelParser LevelParser;
+    pLevel = LevelParser.parseLevel("assets/map1.tmx");
 
     std::cout << "entering PlayState\n";
     return true;
