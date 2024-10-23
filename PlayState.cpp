@@ -20,6 +20,8 @@ void PlayState::Update()
         TheGame::Instance()->GetStateMachine()->PushState(new PauseState());
     }
 
+    pLevel->update();
+
     // for(int i = 0; i < m_gameObjects.size(); i++)
     // {
     //     m_gameObjects[i]->Update();
