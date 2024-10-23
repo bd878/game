@@ -46,6 +46,8 @@ add_library(
 add_library(
   Layers
   Layer.h
+  ObjectLayer.h
+  ObjectLayer.cpp
   TileLayer.h
   TileLayer.cpp
   LevelParser.h
