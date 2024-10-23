@@ -24,10 +24,6 @@ bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* _r
     SDL_Texture* pTexture = SDL_CreateTextureFromSurface(_renderer, pTempSurface);
     SDL_FreeSurface(pTempSurface);
 
-    int w, h;
-    if (SDL_QueryTexture(pTexture, NULL, NULL, &w, &h) < 0) {
-         return false;
-    }
 
     if (pTexture != 0)
     {

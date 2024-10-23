@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Game.h"
 #include "TextureManager.h"
 #include "TileLayer.h"
@@ -18,17 +19,20 @@ void TileLayer::render()
 {
     int x, y, x2, y2 = 0;
 
+    std::cout << "num rows: " << m_numRows << 
+        ", num columns: " << m_numColumns << std::endl;
+
     x = m_position.GetX() / m_tileSize;
     y = m_position.GetY() / m_tileSize;
 
     x2 = int(m_position.GetX()) % m_tileSize;
-    y2 = int(m_position.GetY()) & m_tileSize;
+    y2 = int(m_position.GetY()) % m_tileSize;
 
     for(int i = 0; i < m_numRows; i++)
     {
         for(int j = 0; j < m_numColumns; j++)
         {
-            int id = m_tileIDs[i][j + x];
+            int id = m_tileIDs[i + y][j + x];
 
             if (id == 0)
             {
@@ -39,7 +43,10 @@ void TileLayer::render()
 
             id--;
 
-            TheTextureManager::Instance()->drawTile(tileset.name, 2, 2,
+            TheTextureManager::Instance()->drawTile(
+                tileset.name,
+                tileset.margin,
+                tileset.spacing,
                 (j * m_tileSize) - x2,
                 (i * m_tileSize) - y2,
                 m_tileSize,
@@ -50,6 +57,8 @@ void TileLayer::render()
             );
         }
     }
+
+    std::cout << "done render" << std::endl;
 }
 
 Tileset TileLayer::getTilesetByID(int tileID)
@@ -69,7 +78,7 @@ Tileset TileLayer::getTilesetByID(int tileID)
         }
     }
 
-    std::cout << "dod not find tileset, returning empty tileset\n";
+    std::cout << "did not find tileset, returning empty tileset\n";
     Tileset t;
     return t;
 }
