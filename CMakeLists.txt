@@ -24,12 +24,25 @@ else()
   message(STATUS "SDL2_image not found")
 endif()
 
+find_package(SDL2_mixer REQUIRED)
+if(SDL2_mixer_FOUND)
+  message(STATUS "SDL2_mixer found")
+else()
+  message(STATUS "SDL2_mixer not found")
+endif()
+
 find_package(ZLIB REQUIRED)
 if(ZLIB_FOUND)
   message(STATUS "Zlib found")
 else()
   message(STATUS "Zlib not found")
 endif()
+
+add_library(
+  Sound
+  SoundManager.h
+  SoundManager.cpp
+)
 
 add_library(
   Tinyxml
@@ -113,13 +126,15 @@ add_library(
 
 target_link_libraries(GameStates TextureManager GameObjects base64)
 
-target_link_libraries(Game PUBLIC SDL2 SDL2_image z)
+target_link_libraries(Game PUBLIC SDL2 SDL2_image SDL2_mixer z)
 
 add_executable(game main.cpp)
 target_link_libraries(
   game
   SDL2
   SDL2_image
+  SDL2_mixer
+  Sound
   Game
   GameObjects
   InputHandler
