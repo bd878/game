@@ -22,6 +22,17 @@ public:
   int GetGameWidth() const { return m_gameWidth; }
   int GetGameHeight() const { return m_gameHeight; }
 
+  int GetScrollSpeed() const { return m_scrollSpeed; }
+
+  void SetPlayerLives(int lives) { m_playerLives = lives; }
+  int GetPlayerLives() const { return m_playerLives; }
+
+  void SetLevelComplete(bool levelComplete) { m_bLevelComplete = levelComplete; }
+  const bool GetLevelComplete() { return m_bLevelComplete; }
+
+  void SetCurrentLevel(int);
+  int GetCurrentLevel() const;
+
   GameStateMachine* GetStateMachine() { return m_pGameStateMachine; }
   SDL_Renderer* GetRenderer() const { return _renderer; }
   SDL_Window* GetWindow() const { return _window; }
@@ -36,6 +47,14 @@ private:
 
   int m_gameWidth;
   int m_gameHeight;
+
+  int m_scrollSpeed;
+
+  int m_playerLives;
+
+  bool m_bLevelComplete;
+
+  int m_currentLevel;
 
   SDL_Window* _window;
   SDL_Renderer* _renderer;

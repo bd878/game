@@ -118,3 +118,10 @@ void Game::Quit() {
   std::cout << "Quit" << std::endl;
   _running = false;
 }
+
+void Game::SetCurrentLevel(int currentLevel)
+{
+  m_currentLevel = currentLevel;
+  // m_pGameStateMachine->ChangeState(new BetweenLevelState());
+  m_bLevelComplete = false;
+}

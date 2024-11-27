@@ -1,13 +1,13 @@
 #include "AnimatedGraphic.h"
 
-AnimatedGraphic::AnimatedGraphic() : AnimatedObject()
+AnimatedGraphic::AnimatedGraphic() : ShooterObject()
 {
 
 }
 
 void AnimatedGraphic::Load(std::unique_ptr<LoaderParams> const& pParams)
 {
-    AnimatedObject::Load(std::move(pParams));
+    ShooterObject::Load(std::move(pParams));
     m_animSpeed = pParams->GetAnimSpeed();
 }
 

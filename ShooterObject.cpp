@@ -5,11 +5,10 @@
 #include "Game.h"
 #include "LoaderParams.h"
 #include "TextureManager.h"
-#include "AnimatedObject.h"
+#include "ShooterObject.h"
 
-void AnimatedObject::Load(std::unique_ptr<LoaderParams> const &params)
+void ShooterObject::Load(std::unique_ptr<LoaderParams> const &params)
 {
-  m_animSpeed = params->GetAnimSpeed();
   m_numFrames = params->GetNumFrames();
   m_position = Vector2D(params->GetX(), params->GetY());
   m_width = params->GetWidth();

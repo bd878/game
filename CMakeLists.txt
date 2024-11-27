@@ -83,8 +83,8 @@ add_library(
   Player.cpp
   Enemy.h
   Enemy.cpp
-  AnimatedObject.h
-  AnimatedObject.cpp
+  ShooterObject.h
+  ShooterObject.cpp
   AnimatedGraphic.h
   AnimatedGraphic.cpp
   MenuButton.h

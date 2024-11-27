@@ -3,9 +3,9 @@
 #include <memory>
 #include "GameObjectFactory.h"
 #include "LoaderParams.h"
-#include "AnimatedObject.h"
+#include "ShooterObject.h"
 
-class AnimatedGraphic : public AnimatedObject
+class AnimatedGraphic : public ShooterObject
 {
 public:
     AnimatedGraphic();

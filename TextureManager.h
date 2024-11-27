@@ -14,7 +14,7 @@ public:
         SDL_Renderer* _renderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
     void drawFrame(std::string id, int x, int y, int width, int height,
-        int currentRow, int currentFrame, SDL_Renderer* _renderer,
+        int currentRow, int currentFrame, SDL_Renderer* _renderer, double angle, int alpha,
         SDL_RendererFlip flip = SDL_FLIP_NONE);
 
     void drawTile(std::string id, int margin, int spacing,

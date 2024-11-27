@@ -1,10 +1,10 @@
 #include <iostream>
-#include "AnimatedObject.h"
+#include "ShooterObject.h"
 #include "Enemy.h"
 
 void Enemy::Load(std::unique_ptr<LoaderParams> const& pParams)
 {
-    AnimatedObject::Load(std::move(pParams));
+    ShooterObject::Load(std::move(pParams));
     m_velocity.SetY(2);
     m_velocity.SetX(0.001);
 }
@@ -22,5 +22,5 @@ void Enemy::Update()
         m_velocity.SetY(-2);
     }
 
-    AnimatedObject::Update();
+    ShooterObject::Update();
 }

@@ -2,10 +2,10 @@
 
 #include <memory>
 #include "LoaderParams.h"
-#include "AnimatedObject.h"
+#include "ShooterObject.h"
 #include "GameObjectFactory.h"
 
-class Player : public AnimatedObject {
+class Player : public ShooterObject {
 
 public:
 
@@ -16,7 +16,15 @@ public:
     virtual void Update();
 
 private:
+    void ressurect();
+
     void handleInput();
+
+    void handleAnimation();
+
+    int m_invulnerable;
+    int m_invulnerableTime;
+    int m_invulnerableCounter;
 };
 
 class PlayerCreator : public BaseCreator

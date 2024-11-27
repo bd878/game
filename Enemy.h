@@ -1,17 +1,26 @@
 #pragma once
 
+#include <string>
 #include <memory>
 #include "LoaderParams.h"
-#include "AnimatedObject.h"
+#include "ShooterObject.h"
 #include "GameObjectFactory.h"
 
-class Enemy : public AnimatedObject {
+class Enemy : public ShooterObject {
 public:
-    virtual ~Enemy() {}
+
+    Enemy() : ShooterObject() {}
 
     virtual void Load(std::unique_ptr<LoaderParams> const& pParams);
 
     virtual void Update();
+
+    virtual std::string Type() { return "Enemy"; }
+
+protected:
+    int m_health;
+
+    virtual ~Enemy() {}
 };
 
 class EnemyCreator : public BaseCreator {
