@@ -18,12 +18,18 @@ public:
         m_tileIDs = data;
     }
 
+    const std::vector<std::vector<int>>& GetTileIDs() { return m_tileIDs; }
+
     void setTileSize(int tileSize)
     {
         m_tileSize = tileSize;
     }
 
+    int GetTileSize() { return m_tileSize; }
+
     Tileset getTilesetByID(int tileID);
+
+    const Vector2D GetPosition() { return m_position; }
 
 private:
     int m_numColumns;

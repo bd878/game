@@ -77,7 +77,18 @@ add_library(
 )
 
 add_library(
+  Collisions
+  Collisions.h
+  CollisionManager.cpp
+  CollisionManager.h
+)
+
+add_library(
   GameObjects
+  BulletHandler.cpp
+  BulletHandler.h
+  EnemyBullet.h
+  PlayerBullet.h
   GameObject.h
   Player.h
   Player.cpp
@@ -136,6 +147,7 @@ target_link_libraries(
   SDL2_mixer
   Sound
   Game
+  Collisions
   GameObjects
   InputHandler
   GameStates

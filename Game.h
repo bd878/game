@@ -31,7 +31,7 @@ public:
   const bool GetLevelComplete() { return m_bLevelComplete; }
 
   void SetCurrentLevel(int);
-  int GetCurrentLevel() const;
+  int GetCurrentLevel() const { return m_currentLevel; };
 
   GameStateMachine* GetStateMachine() { return m_pGameStateMachine; }
   SDL_Renderer* GetRenderer() const { return _renderer; }

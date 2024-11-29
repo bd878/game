@@ -24,6 +24,8 @@ public:
 
   virtual Vector2D& GetPosition() { return m_position; }
 
+  virtual Vector2D& GetVelocity() { return m_velocity; }
+
   int GetWidth() { return m_width; }
 
   int GetHeight() { return m_height; }

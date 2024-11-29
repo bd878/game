@@ -25,7 +25,7 @@ public:
 
 protected:
 
-  ShooterObject();
+  ShooterObject() {};
 
   void DoDyingAnimation();
 

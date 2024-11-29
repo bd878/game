@@ -7,6 +7,7 @@
 #include "InputHandler.h"
 #include "MainMenuState.h"
 #include "GameStateMachine.h"
+#include "GameOverState.h"
 #include "GameObjectFactory.h"
 #include "AnimatedGraphic.h"
 #include "MenuButton.h"
@@ -122,6 +123,6 @@ void Game::Quit() {
 void Game::SetCurrentLevel(int currentLevel)
 {
   m_currentLevel = currentLevel;
-  // m_pGameStateMachine->ChangeState(new BetweenLevelState());
+  m_pGameStateMachine->ChangeState(new GameOverState());
   m_bLevelComplete = false;
 }

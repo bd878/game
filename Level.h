@@ -3,8 +3,10 @@
 #include <vector>
 #include <iostream>
 #include "Layer.h"
+#include "Player.h"
 
 class LevelParser;
+class TileLayer;
 
 struct Tileset
 {
@@ -41,8 +43,16 @@ public:
         return &m_layers;
     }
 
+    std::vector<TileLayer*>* GetCollisionLayers() { return &m_collisionLayers; }
+
+    Player* GetPlayer() { return m_pPlayer; }
+    void SetPlayer(Player* pPlayer) { m_pPlayer = pPlayer; }
+
 private:
+
+    Player* m_pPlayer;
 
     std::vector<Tileset> m_tilesets;
     std::vector<Layer*> m_layers;
+    std::vector<TileLayer*> m_collisionLayers;
 };
